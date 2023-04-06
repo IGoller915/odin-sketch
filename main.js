@@ -23,8 +23,20 @@ function makeGrid() {
 makeGrid()
 
 function pixelOn(e){
-    console.log(this)
-    this.classList.add('pixel-on')
+    if (mode == "Black"){
+        this.style.backgroundColor = 'black'
+    }
+    if (mode == "Erase"){
+        this.style.backgroundColor = 'white'
+    }
+    if (mode == "Rainbow"){
+        let red = Math.floor(Math.random() * 256)
+        let green = Math.floor(Math.random() * 256)
+        let blue = Math.floor(Math.random() * 256)
+        let rgb = `rgb(${red},${green},${blue})` 
+        this.style.backgroundColor = rgb
+    }
+    
 }
 
 const columns = document.querySelectorAll('.column')
@@ -41,3 +53,15 @@ document.addEventListener('mousedown', draw)
 document.addEventListener('mouseup', endDraw)
 
 const buttons = document.querySelectorAll('.button')
+
+function selectMode(){
+    buttons.forEach(button => button.classList.remove('selected'))
+    this.classList.add('selected')
+    mode = document.querySelector('.selected').textContent
+    console.log(mode)
+}
+
+let mode = null
+
+
+buttons.forEach(button => button.addEventListener('click', selectMode))
